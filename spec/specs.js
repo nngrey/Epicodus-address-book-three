@@ -40,8 +40,9 @@ describe("Contact", function() {
 
     it("adds the address to the address property of the contact", function() {
       var testContact = Contact.create();
-      var testAddress = testContact.createAddress("1 a a", "b", "c");
+      var testAddress = testContact.createAddress('12 main st', 'port', 'or');
       console.log(testAddress);
+      console.log(testContact.addresses);
       testContact.addresses.should.eql([testAddress]);
     });
 
@@ -96,20 +97,19 @@ describe("Phone", function() {
   describe("valid", function() {
     it('returns ten numbers that accepts spaces', function() {
       var testPhone = Object.create(Phone);
-      testPhone.number = "404 770 9821";
+      testPhone.number = "4047709821";
       testPhone.valid().should.equal(true);
     });
     it("should fail if incorrect format", function() {
-      var testPhone2 = Object.create(Phone);
-      testPhone2.number = "5555 66667777";
+      var testPhone2 = Phone.create("555223452352352352352345");
       testPhone2.valid().should.equal(false);
     });
   });
   describe("initialize", function() {
     it("Phone Number", function() {
       var testPhone = Object.create(Phone);
-      testPhone.initialize("555 555 5555");
-      testPhone.number.should.equal("555 555 5555");
+      testPhone.initialize("5555555555");
+      testPhone.number.should.equal("5555555555");
     });
   });
 

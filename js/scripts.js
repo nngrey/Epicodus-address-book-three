@@ -16,12 +16,11 @@ var Contact = {
   createAddress: function(street, city, state) {
     var address = Address.create(street, city, state);
     if (address.valid()) {
-      this.addresses.push(address.fullAddress());
+      this.addresses.push(address);
       return address;
     } else {
       this.stop = true;
-      alert("Invalid Address");
-      return null;
+      return address;
     }
   },
   createPhone: function(number) {
@@ -31,8 +30,7 @@ var Contact = {
       return phone;
     } else {
       this.stop = true;
-      alert("Invalid Phone Number");
-      return null;
+      return phone;
     }
   },
   fullName: function() {
@@ -71,7 +69,7 @@ var Phone = {
     this.number = number;
   }, 
   valid: function() {
-    var re = /\d{10}/;
+    var re = /^[0-9]{9,10}$/;
     return re.test(this.number);
   }
 }
@@ -122,6 +120,7 @@ $(document).ready(function() {
     });
 
     if (newContact.stop) {
+      alert("Invalid Phone format");
       return;
     }
 
@@ -135,6 +134,7 @@ $(document).ready(function() {
     });
 
     if (newContact.stop) {
+      alert("Invalid Address format");
       return;
     }
 
