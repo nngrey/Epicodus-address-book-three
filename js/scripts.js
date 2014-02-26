@@ -1,10 +1,29 @@
-var Contact = {
-  fullName: function() {
-    return this.firstName + " " + this.lastName;
+var Contact = {  
+  all: [],
+  create: function(firstName, lastName) {
+    var contact = Object.create(Contact);
+    contact.initialize(firstName, lastName);
+    this.all.push(contact);
+    return contact;
+  },
+  initialize: function(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.addresses = [];
   }
-};
+}
 
-var Address = {
+var Address = {  
+  create: function(street, city, state) {
+    var address = Object.create(Address);
+    address.initialize(street, city, state);
+    return address;
+  },
+  initialize: function(street, city, state) {
+    this.street = street;
+    this.city = city;
+    this.state = state;
+  },
   fullAddress: function() {
     return this.street + ", " + this.city + ", " + this.state;
   },

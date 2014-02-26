@@ -1,33 +1,64 @@
-describe("Contact", function() {
-  describe("fullName", function() {
-    it("combines the first and last name separated by a space", function() {
-      var testContact = Object.create(Contact);
-      testContact.firstName = "Dolly";
-      testContact.lastName = "Parton";
-      testContact.fullName().should.equal("Dolly Parton");
-    });
-  });
-  it("addresses should equal same as Address when only one address in Addresses", function() {
-    var testContact2 = Object.create(Contact);
-    testContact2.addresses = [];
-    var testAddress = Object.create(Address);
-    testAddress.street = '1234 High St';
-    testAddress.city   = 'Portland';
-    testAddress.state  = 'Oregon';
-    testContact2.addresses.push(testAddress.fullAddress());
-    testContact2.addresses[0].should.equal("1234 High St, Portland, Oregon");
-  });
-  it("phone should equal same Phone", function() {
-    var testContact = Object.create(Contact);
-    testContact.phones = [];
-    var testPhone = Object.create(Phone);
-    testPhone.number = "404 770 9821";
-    testContact.phones.push(testPhone.number);
-    testContact.phones[0].should.equal("404 770 9821");
-  });
+beforeEach(function(){
+  Contact.all = [];
 });
 
+describe("Contact", function() {
+  describe("create", function() {    
+    it("adds the contact to the .all property", function(){
+      var testContact = Contact.create();
+      Contact.all.should.eql([testContact]);
+    });
+  });
+
+  describe("initialize", function() {
+    it("sets the first and last name", function() {
+      var testContact = Object.create(Contact);
+      testContact.initialize("Mary", "Jane");
+      testContact.addresses.should.eql([]);
+    });
+  });
+
+  describe("create", function() {
+    it("creates a new instance of a Contact", function() {
+      var testContact = Contact.create();
+      Contact.isPrototypeOf(testContact).should.equal(true);
+    });
+  });
+
+  // describe("createAddress", function() {
+  //   it("creates an address object", function() {
+  //     var testContact = Contact.create();
+  //     var testAddress = testContact.createAddress();
+  //     Address.isPrototypeOf(testAddress).should.equal(true);
+  //   });
+
+  //   it("adds the address to the address property of the contact", function() {
+  //     var testContact = Contact.create();
+  //     var testAddress = testContact.createAddress();
+  //     testContact.addresses.should.eql([testAddress]);
+  //   });
+  // });
+});
+
+
 describe("Address", function() {
+  describe("initialize", function() {
+    it("sets the street, city and state", function() {
+      var testAddress = Object.create(Address);
+      testAddress.initialize("208 5th Ave", "Portland", "Oregon");
+      testAddress.street.should.equal("208 5th Ave");
+      testAddress.city.should.equal("Portland");
+      testAddress.state.should.equal("Oregon");
+    });
+  });
+
+  describe("create", function(){
+    it("creates a new instance of an address", function() {
+      var testAddress = Address.create();
+      Address.isPrototypeOf(testAddress).should.equal(true);
+    });
+  });
+
   describe("fullAddress", function() {
     it("combines street, city, state", function() {
       var testAddress = Object.create(Address);
@@ -62,3 +93,35 @@ describe("Phone", function() {
     });
   });
 });
+
+
+
+
+/* describe("Contact", function() {
+  describe("fullName", function() {
+    it("combines the first and last name separated by a space", function() {
+      var testContact = Object.create(Contact);
+      testContact.firstName = "Dolly";
+      testContact.lastName = "Parton";
+      testContact.fullName().should.equal("Dolly Parton");
+    });
+  });
+  it("addresses should equal same as Address when only one address in Addresses", function() {
+    var testContact2 = Object.create(Contact);
+    testContact2.addresses = [];
+    var testAddress = Object.create(Address);
+    testAddress.street = '1234 High St';
+    testAddress.city   = 'Portland';
+    testAddress.state  = 'Oregon';
+    testContact2.addresses.push(testAddress.fullAddress());
+    testContact2.addresses[0].should.equal("1234 High St, Portland, Oregon");
+  });
+  it("phone should equal same Phone", function() {
+    var testContact = Object.create(Contact);
+    testContact.phones = [];
+    var testPhone = Object.create(Phone);
+    testPhone.number = "404 770 9821";
+    testContact.phones.push(testPhone.number);
+    testContact.phones[0].should.equal("404 770 9821");
+  });
+}); */
