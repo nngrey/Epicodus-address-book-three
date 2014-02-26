@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/scripts.js"></script>
+    <title>Address Book</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Address Book</h1>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Add a contact:</h2>
+
+          <form id="new-contact">
+            <div class="form-group">
+              <label for="new-first-name">FIRST NAME:</label><br>
+              <input id="new-first-name" type="text">
+            </div><br>
+
+            <div class="form-group">
+              <label for="new-last-name">LAST NAME:</label><br>
+              <input id="new-last-name" type="text">
+            </div><br>
+
+            <div id="new-phones">
+              <div class="a-phone">
+                <div class="form-group">
+                  <label for="new-phone">Phone:</label><br>
+                  <input class="form-control new-phone" type="text">
+                </div><br>
+              </div>              
+            </div>
+
+            <div id="new-addresses">
+              <div class="new-address">
+                <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="text" class="form-control new-street">
+                </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" class="form-control new-city">
+                </div>
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input type="text" class="form-control new-state">
+                </div>
+              </div>
+            </div>
+
+
+            <button type="submit" class="btn">Add!</button>
+            <span id="add-phone" class="adder phone-adder">Add another phone number!</span>
+            <span id="add-address" class="adder address-adder">Add another address!</span>
+          </form>
+        </div>
+
+        <ul id="contacts"></ul>
+
+        <div class="col-md-6">
+          <div id="show-contact">
+            <h2></h2>
+            <p>First name: <span class="first-name"></span></p>
+            <p>Last name: <span class="last-name"></span></p>
+            <ul id="phone-numbers"></ul>
+            <ul id="addresses"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
