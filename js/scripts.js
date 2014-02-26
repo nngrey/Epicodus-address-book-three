@@ -10,6 +10,33 @@ var Contact = {
     this.firstName = firstName;
     this.lastName = lastName;
     this.addresses = [];
+    this.phones = [];
+    this.stop = false;
+  },
+  createAddress: function(street, city, state) {
+    var address = Address.create(street, city, state);
+    if (address.valid()) {
+      this.addresses.push(address.fullAddress());
+      return address;
+    } else {
+      this.stop = true;
+      alert("Invalid Address");
+      return null;
+    }
+  },
+  createPhone: function(number) {
+    var phone = Phone.create(number);
+    if (phone.valid()) {
+      this.phones.push(phone.number);
+      return phone;
+    } else {
+      this.stop = true;
+      alert("Invalid Phone Number");
+      return null;
+    }
+  },
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
   }
 }
 
@@ -33,9 +60,18 @@ var Address = {
   }
 };
 
+
 var Phone = {
+  create: function(number) {
+    var phone = Object.create(Phone);
+    phone.initialize(number);
+    return phone;
+  },  
+  initialize: function(number) {
+    this.number = number;
+  }, 
   valid: function() {
-    var re = /\d{3}\s{1}\d{3}\s{1}\d{4}/;
+    var re = /\d{10}/;
     return re.test(this.number);
   }
 }
@@ -49,12 +85,12 @@ $(document).ready(function() {
                                    '<input type="text" class="form-control new-street">' + 
                                  '</div>' + 
                                  '<div class="form-group">' + 
-                                   '<label for="new-city">City</label>' + 
-                                   '<input type="text" class="form-control new-city">' + 
+                                   '<label for="new-city">City</label><br />' + 
+                                   '<input type="text" class="new-city">' + 
                                  '</div>' + 
                                  '<div class="form-group">' + 
-                                   '<label for="new-state">State</label>' + 
-                                   '<input type="text" class="form-control new-state">' + 
+                                   '<label for="new-state">State</label><br />' + 
+                                   '<input type="text" class="new-state">' + 
                                  '</div>' + 
                                '</div>');
   });
@@ -63,7 +99,7 @@ $(document).ready(function() {
     $("#new-phones").append('<div class="a-phone">' +
                               '<div class="form-group">' +
                                 '<label for="new-phone">Phone:</label><br>' +
-                                '<input class="new-phone" type="text">' +
+                                '<input class="new-phone" maxlength="10" type="text">' +
                               '</div><br>' +
                             '</div>');
   });
@@ -75,32 +111,17 @@ $(document).ready(function() {
 
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
- 
-    var newContact = Object.create(Contact);
 
-    newContact.firstName = inputtedFirstName;
-    newContact.lastName = inputtedLastName;
-
-    newContact.phones = [];
-    newContact.addresses = [];
-    
+    var newContact = Contact.create(inputtedFirstName, inputtedLastName);
 
     // Do Phone Number display loop
     $(".a-phone").each(function() {
       var inputtedPhone = $(this).find("input.new-phone").val();
-      var newPhone = Object.create(Phone);
-      newPhone.number = inputtedPhone;
-      console.log(inputtedPhone);
+      newContact.createPhone(inputtedPhone);
 
-      if (newPhone.valid()) {
-        newContact.phones.push(newPhone.number);
-      } else {
-        alert("You have an invalid Phone Number format");
-        stop = true;
-      }
     });
 
-    if (stop) {
+    if (newContact.stop) {
       return;
     }
 
@@ -110,20 +131,10 @@ $(document).ready(function() {
       var inputtedCity = $(this).find("input.new-city").val();
       var inputtedState = $(this).find("input.new-state").val();
       
-      var newAddress = Object.create(Address);
-      newAddress.street = inputtedStreet;
-      newAddress.city = inputtedCity;
-      newAddress.state = inputtedState;
-
-      if (newAddress.valid()) {
-        newContact.addresses.push(newAddress.fullAddress());
-      } else {
-        alert("You have an invalid Address format");
-        stop = true;
-      }
+      newContact.createAddress(inputtedStreet, inputtedCity, inputtedState);
     });
 
-    if (stop) {
+    if (newContact.stop) {
       return;
     }
 

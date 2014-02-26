@@ -30,7 +30,7 @@
               <div class="a-phone">
                 <div class="form-group">
                   <label for="new-phone">Phone:</label><br>
-                  <input class="form-control new-phone" type="text">
+                  <input class="new-phone" type="text" maxlength="10">
                 </div><br>
               </div>              
             </div>
@@ -42,20 +42,20 @@
                   <input type="text" class="form-control new-street">
                 </div>
                 <div class="form-group">
-                  <label for="city">City</label>
-                  <input type="text" class="form-control new-city">
+                  <label for="city">City</label><br />
+                  <input type="text" class="new-city">
                 </div>
                 <div class="form-group">
-                  <label for="state">State</label>
-                  <input type="text" class="form-control new-state">
+                  <label for="state">State</label><br />
+                  <input type="text" class="new-state">
                 </div>
               </div>
             </div>
 
 
             <button type="submit" class="btn">Add!</button>
-            <span id="add-phone" class="adder phone-adder">Add another phone number!</span>
-            <span id="add-address" class="adder address-adder">Add another address!</span>
+            <span id="add-phone" class="adder phone-adder btn btn-primary">Add another phone number!</span>
+            <span id="add-address" class="adder address-adder btn btn-danger">Add another address!</span>
           </form>
         </div>
 

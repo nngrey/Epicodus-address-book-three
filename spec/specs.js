@@ -5,7 +5,7 @@ beforeEach(function(){
 describe("Contact", function() {
   describe("create", function() {    
     it("adds the contact to the .all property", function(){
-      var testContact = Contact.create();
+      var testContact = Contact.create("Mary", "Jane");
       Contact.all.should.eql([testContact]);
     });
   });
@@ -20,24 +20,37 @@ describe("Contact", function() {
 
   describe("create", function() {
     it("creates a new instance of a Contact", function() {
-      var testContact = Contact.create();
+      var testContact = Contact.create("Mary", "Jane");
       Contact.isPrototypeOf(testContact).should.equal(true);
     });
   });
 
-  // describe("createAddress", function() {
-  //   it("creates an address object", function() {
-  //     var testContact = Contact.create();
-  //     var testAddress = testContact.createAddress();
-  //     Address.isPrototypeOf(testAddress).should.equal(true);
-  //   });
+  describe("createAddress", function() {
+    it("creates an address object", function() {
+      var testContact = Contact.create();
+      var testAddress = testContact.createAddress("208 5th Ave", "Portland", "Oregeon");
+      Address.isPrototypeOf(testAddress).should.equal(true);
+    });
 
-  //   it("adds the address to the address property of the contact", function() {
-  //     var testContact = Contact.create();
-  //     var testAddress = testContact.createAddress();
-  //     testContact.addresses.should.eql([testAddress]);
-  //   });
-  // });
+    it("Should display full address", function() {
+      var testContact = Contact.create();
+      var testAddress = testContact.createAddress("208 5th Ave", "Portland", "Oregeon");
+      testAddress.fullAddress().should.equal("208 5th Ave, Portland, Oregeon");
+    });    
+
+    it("adds the address to the address property of the contact", function() {
+      var testContact = Contact.create();
+      var testAddress = testContact.createAddress("1 a a", "b", "c");
+      console.log(testAddress);
+      testContact.addresses.should.eql([testAddress]);
+    });
+
+    it("Should display full Phone", function() {
+      var testContact = Contact.create();
+      var testPhone = testContact.createPhone("555 555 5555");
+      testPhone.number.should.equal("555 555 5555");
+    });
+  });
 });
 
 
@@ -92,6 +105,21 @@ describe("Phone", function() {
       testPhone2.valid().should.equal(false);
     });
   });
+  describe("initialize", function() {
+    it("Phone Number", function() {
+      var testPhone = Object.create(Phone);
+      testPhone.initialize("555 555 5555");
+      testPhone.number.should.equal("555 555 5555");
+    });
+  });
+
+  describe("create", function(){
+    it("creates a new instance of a phone number", function() {
+      var testPhone = Phone.create();
+      Phone.isPrototypeOf(testPhone).should.equal(true);
+    });
+  });
+
 });
 
 
